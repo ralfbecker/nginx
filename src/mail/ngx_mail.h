@@ -282,6 +282,7 @@ typedef struct {
 
 #define NGX_SMTP_HELO          1
 #define NGX_SMTP_EHLO          2
+#define NGX_SMTP_LHLO          21
 #define NGX_SMTP_AUTH          3
 #define NGX_SMTP_QUIT          4
 #define NGX_SMTP_NOOP          5
