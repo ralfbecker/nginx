@@ -723,6 +723,10 @@ ngx_mail_smtp_parse_command(ngx_mail_session_t *s)
                     {
                         s->command = NGX_SMTP_EHLO;
 
+                    } else if (c0 == 'L' && c1 == 'H' && c2 == 'L' && c3 == 'O')
+                    {
+                        s->command = NGX_SMTP_LHLO;
+
                     } else if (c0 == 'Q' && c1 == 'U' && c2 == 'I' && c3 == 'T')
                     {
                         s->command = NGX_SMTP_QUIT;
