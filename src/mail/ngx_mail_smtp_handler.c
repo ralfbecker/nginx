@@ -486,6 +486,7 @@ ngx_mail_smtp_auth_state(ngx_event_t *rev)
 
             case NGX_SMTP_HELO:
             case NGX_SMTP_EHLO:
+            case NGX_SMTP_LHLO:
                 rc = ngx_mail_smtp_helo(s, c);
                 break;
 
