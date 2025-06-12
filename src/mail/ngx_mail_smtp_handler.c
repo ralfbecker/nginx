@@ -627,6 +627,9 @@ ngx_mail_smtp_helo(ngx_mail_session_t *s, ngx_connection_t *c)
 
     } else {
         s->esmtp = 1;
+        if (s->command == NGX_SMTP_LHLO) {
+            s->lmtp = 1;
+        }
 
 #if (NGX_MAIL_SSL)
 

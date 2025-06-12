@@ -582,7 +582,7 @@ ngx_mail_proxy_smtp_handler(ngx_event_t *rev)
     case ngx_smtp_start:
         ngx_log_debug0(NGX_LOG_DEBUG_MAIL, rev->log, 0, "mail proxy send ehlo");
 
-        s->connection->log->action = "sending HELO/EHLO to upstream";
+        s->connection->log->action = "sending HELO/EHLO/LHLO to upstream";
 
         cscf = ngx_mail_get_module_srv_conf(s, ngx_mail_core_module);
 
@@ -596,7 +596,7 @@ ngx_mail_proxy_smtp_handler(ngx_event_t *rev)
         pcf = ngx_mail_get_module_srv_conf(s, ngx_mail_proxy_module);
 
         p = ngx_cpymem(line.data,
-                       ((s->esmtp || pcf->xclient) ? "EHLO " : "HELO "),
+                       ((s->esmtp || pcf->xclient) ? (s->lmtp ? "LHLO " : "EHLO ") : "HELO "),
                        sizeof("HELO ") - 1);
 
         p = ngx_cpymem(p, cscf->server_name.data, cscf->server_name.len);
@@ -683,7 +683,7 @@ ngx_mail_proxy_smtp_handler(ngx_event_t *rev)
         ngx_log_debug0(NGX_LOG_DEBUG_MAIL, rev->log, 0,
                        "mail proxy send client ehlo");
 
-        s->connection->log->action = "sending client HELO/EHLO to upstream";
+        s->connection->log->action = "sending client HELO/EHLO/LHLO to upstream";
 
         line.len = sizeof("HELO " CRLF) - 1 + s->smtp_helo.len;
 
@@ -694,7 +694,7 @@ ngx_mail_proxy_smtp_handler(ngx_event_t *rev)
         }
 
         line.len = ngx_sprintf(line.data,
-                       ((s->esmtp) ? "EHLO %V" CRLF : "HELO %V" CRLF),
+                       ((s->esmtp) ? (s->lmtp ? "LHLO %V" CRLF : "EHLO %V" CRLF) : "HELO %V" CRLF),
                        &s->smtp_helo)
                    - line.data;
 

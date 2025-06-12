@@ -211,6 +211,7 @@ typedef struct {
     unsigned                no_sync_literal:1;
     unsigned                starttls:1;
     unsigned                esmtp:1;
+    unsigned                lmtp:1;
     unsigned                auth_method:3;
     unsigned                auth_wait:1;
 
