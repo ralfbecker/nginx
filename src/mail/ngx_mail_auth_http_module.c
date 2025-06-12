@@ -1330,7 +1330,7 @@ ngx_mail_auth_http_create_request(ngx_mail_session_t *s, ngx_pool_t *pool,
 
     b->last = ngx_cpymem(b->last, "Auth-Protocol: ",
                          sizeof("Auth-Protocol: ") - 1);
-    const u_char *lmtp = "lmtp";
+    const u_char *lmtp = (u_char *)"lmtp";
     b->last = ngx_cpymem(b->last, s->lmtp ? lmtp : cscf->protocol->name.data,
                          cscf->protocol->name.len);
     *b->last++ = CR; *b->last++ = LF;
